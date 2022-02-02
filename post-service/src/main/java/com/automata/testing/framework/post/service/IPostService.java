@@ -40,4 +40,12 @@ public interface IPostService {
      * @return
      */
     Optional<PostEntity> getPost(Integer id);
+    
+    /**
+     * Delete a post by its id.
+     * @param id the id
+     * @return
+     */
+    void deletePost(Integer id);
+    
 }

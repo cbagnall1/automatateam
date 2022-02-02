@@ -46,6 +46,11 @@
 			<groupId>com.automata.testing.framework</groupId>
 			<artifactId>algorithm-services</artifactId>
 			<version>${project.version}</version>
+		</dependency><!-- Internal Dependencies -->
+		<dependency>
+			<groupId>com.automata.testing.framework</groupId>
+			<artifactId>user-service</artifactId>
+			<version>${project.version}</version>
 		</dependency>
 
 

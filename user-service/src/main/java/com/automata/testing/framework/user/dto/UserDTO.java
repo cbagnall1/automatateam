@@ -54,6 +54,11 @@ public class UserDTO {
      * The user email address.
      */
     private String emailAddress;
+    
+    /**
+     * The user password.
+     */
+    private String password;
 
     // -------------------------------------- public attributes
 

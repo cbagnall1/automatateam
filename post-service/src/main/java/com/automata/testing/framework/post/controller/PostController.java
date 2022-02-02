@@ -86,6 +86,20 @@ public class PostController {
 
 	return ResponseEntity.ok(postService.getPost(id).get());
     }
+    
+    /**
+     * Rest API to delete a post based by id.
+     * 
+     * @param id
+     *           the identifier
+     * @return the response entity
+     */
+    @PostMapping(path = "/delete/{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable(name = "identifier") Integer id) {
+    	log.info("Trying to delete a with id {}", id);
+		postService.deletePost(id);
+		return ResponseEntity.ok().build();
+    }
 
     // -------------------------------------- Setters and Getters
 

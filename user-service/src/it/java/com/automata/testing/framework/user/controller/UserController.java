@@ -5,6 +5,7 @@ package com.automata.testing.framework.user.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -59,6 +60,21 @@ public class UserController {
 	userService.createUser(user);
 	return ResponseEntity.ok().build();
     }
+    
+    /**
+     * Rest API to delete a user based by id.
+     * 
+     * @param id
+     *           the identifier
+     * @return the response entity
+     */
+    @PostMapping(path = "/delete/{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable(name = "identifier") Integer id) {
+    	log.info("Trying to delete a with id {}", id);
+    	userService.deleteUser(id);
+		return ResponseEntity.ok().build();
+    }
+    
 
     // -------------------------------------- Protected methods
 

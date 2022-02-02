@@ -11,9 +11,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.automata.testing.framework.post.dto.PostDTO;
-import com.automata.testing.framework.post.dto.UserDTO;
 import com.automata.testing.framework.post.model.PostEntity;
 import com.automata.testing.framework.post.repository.IPostRepository;
+
+import com.automata.testing.framework.user.dto.UserDTO;
 
 import lombok.extern.slf4j.Slf4j;
 

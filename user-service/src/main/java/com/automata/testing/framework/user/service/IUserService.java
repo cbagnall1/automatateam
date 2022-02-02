@@ -24,6 +24,13 @@ public interface IUserService {
      * @param user
      *             the user to create.
      */
-    void createUser(UserDTO user);
+    void createUser(UserDTO user);    
+    
+    /**
+     * Delete a user by its id.
+     * @param id the id
+     * @return
+     */
+    void deleteUser(Integer id);
 
 }

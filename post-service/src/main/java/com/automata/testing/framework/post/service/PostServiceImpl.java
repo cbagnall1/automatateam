@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.automata.testing.framework.algorithm.service.IEncryptionService;
 import com.automata.testing.framework.post.dto.PostDTO;
 import com.automata.testing.framework.post.model.PostEntity;
 import com.automata.testing.framework.post.repository.IPostRepository;
@@ -22,6 +23,12 @@ import com.automata.testing.framework.post.repository.IPostRepository;
  * @author GELIBERT
  */
 public class PostServiceImpl implements IPostService {
+	
+	/**
+     * Encryption service to use.
+     */
+	@Autowired
+    private IEncryptionService encryptionService;
 
     // -------------------------------------- Inner classes
 
@@ -57,7 +64,7 @@ public class PostServiceImpl implements IPostService {
     public Integer createPost(PostDTO post) {
 	PostEntity postDoc = PostEntity.builder().content(post.getContent()).userId(post.getUser().getUserId())
 		.userFirstName(post.getUser().getFirstName()).userLastName(post.getUser().getLastName()).build();
-	// TODO - Encrypt the Content
+	postDoc.setContent(encryptionService.encode(postDoc.getContent()));
 	return postRepo.save(postDoc).getId();
 
     }
@@ -68,6 +75,14 @@ public class PostServiceImpl implements IPostService {
     @Override
     public Optional<PostEntity> getPost(Integer id) {
 	return postRepo.findById(id);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void deletePost(Integer id) {    
+    	postRepo.deleteById(id);
     }
 
     // -------------------------------------- Setters and Getters

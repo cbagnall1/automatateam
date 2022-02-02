@@ -13,6 +13,7 @@ package com.automata.testing.framework.user.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.automata.testing.framework.algorithm.service.IEncryptionService;
 import com.automata.testing.framework.user.dto.UserDTO;
 import com.automata.testing.framework.user.model.UserEntity;
 import com.automata.testing.framework.user.repository.IUserRepository;
@@ -27,7 +28,12 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Service
 @Slf4j
-public class UserServiceImpl implements IUserService {
+public class UserServiceImpl implements IUserService {	
+	/**
+     * Encryption service to use.
+     */
+	@Autowired
+    private IEncryptionService encryptionService;
 
     // -------------------------------------- Inner classes
 
@@ -47,11 +53,22 @@ public class UserServiceImpl implements IUserService {
     @Override
     public void createUser(UserDTO user) {
 	log.info("Saving data for user {}", user);
-	// TODO Implement the password encryption process.
 	// We create the user in database.
-	UserEntity savingUser = UserEntity.builder().firstName(user.getFirstName()).lastName(user.getLastName()).emailAddress(user.getEmailAddress()).password(user.getPassword()).build();
+	UserEntity savingUser = UserEntity.builder().firstName(user.getFirstName())
+												.lastName(user.getLastName())
+												.emailAddress(user.getEmailAddress())
+												.password(encryptionService.encode(user.getPassword())).build();
 	log.debug("Saving the user {}", user);
 	repository.save(savingUser);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */  
+    @Override
+    public void deleteUser(Integer id) {  
+    	log.info("Deleting user with id {}", id);	 
+    	repository.deleteById(id); 
     }
 
     // -------------------------------------- Public static methods
